@@ -75,12 +75,17 @@ WSGI_APPLICATION = 'flexnews.wsgi.application'
 
 DATABASES = {
    'default' : {
-      'ENGINE' : 'django_mongodb_engine',
+      'ENGINE' : 'djongo',
+      'ENFORCE_SCHEMA': True,
+      'HOST' : 'mongo',
+      'PORT': 27017,
       'NAME' : 'flex-challenge',
-      'USER' : 'root',
-      'PASSWORD' : 'example'
-   }
-}
+      #'USER' : 'root',
+      #'PASSWORD' : 'example',
+      #'AUTH_SOURCE': 'admin',
+      #'AUTH_MECHANISM': 'SCRAM-SHA-1',
+   },
+} 
 
 
 # Password validation
