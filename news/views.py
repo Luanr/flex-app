@@ -1,25 +1,23 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
 from news.models import News
-from news.serializers import NewsSerializer
+from news.serializers import NewsSerializer, UserSerializer
+from rest_framework import generics
+from django.contrib.auth.models import User
 
-@csrf_exempt
-def news_list(request):
-    if request.method == 'GET':
-        news = News.objects.all()
-        serializer = NewsSerializer(news, many=True)
-        return JsonResponse(serializer.data, safe=False)
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
-@csrf_exempt
-def news_datail(request, pk):
-    try:
-        news = News.objects.get(pk=pk)
-    except News.DoesNotExist:
-        return HttpResponse(status=404)
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
-    if request.method == 'GET':
-        news = News.objects.all()
-        serializer = NewsSerializer(news, many=True)
-        return JsonResponse(serializer.data, safe=False)
+class NewsList(generics.ListCreateAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+class NewsDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
