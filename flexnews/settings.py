@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'e2k%rz0z$0sz3+o!cd^b=-4p-dju*id1n4ws7ie=i8ef_wesf9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'news',
 ]
 
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'flexnews.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,10 +82,6 @@ DATABASES = {
       'HOST' : 'mongo',
       'PORT': 27017,
       'NAME' : 'flex-challenge',
-      #'USER' : 'root',
-      #'PASSWORD' : 'example',
-      #'AUTH_SOURCE': 'admin',
-      #'AUTH_MECHANISM': 'SCRAM-SHA-1',
    },
 } 
 
